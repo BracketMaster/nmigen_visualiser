@@ -1,0 +1,59 @@
+<!doctype html>
+<title>nMigen Frontend Example</title>
+<link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/normalize.css">
+<link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/sakura-earthly.css">
+<style>
+  ul { margin: 0; padding: 0; display: flex; list-style-type: none; }
+  li > * { padding: 1em; }
+  li.active > a { color: #5e5e5e; border-bottom: 2px solid #4a4a4a; }
+  form { display: flex; }
+  label > input { width: 3em; }
+  form > * { padding-right: 1em; }
+  #result { font-weight: bold; }
+</style>
+
+<hr>
+<p>
+  Click the button below to tick and update the value of
+  the nMigen counter.
+</p>
+<hr>
+
+<form id="calc">
+  <input type="submit" value="Sim Step.">
+</form>
+<p>Sim Ticks = <span id="ticks"></span></p>
+<p>Counter Val = <span id="result"></span></p>
+
+<script src="{{ url_for('static', filename='polyfill.min.js') }}"></script>
+<script src="{{ url_for('static', filename='fetch.js') }}"></script>
+<script>
+  function tick(ev) {
+    ev.preventDefault();
+    fetch("/tick", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+    })
+  }
+
+  function repaint(){
+    const payload = fetch("/update", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({op:"read_updates"})
+    })
+    .then((response) => {return response.json()})
+    .then((payload) => {
+      // update page elements
+      var ticks = document.getElementById('ticks');
+      ticks.innerText = payload.ticks;
+      var result = document.getElementById('result');
+      result.innerText = payload.result;
+    })
+
+  }
+
+  var form = document.getElementById('calc');
+  form.addEventListener('submit', tick);
+  setInterval(repaint, 50);
+</script>
