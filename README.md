@@ -62,3 +62,7 @@ It has the following strengths:
    - list comprehensions
    - the list goes on...
  - nMigen SOC comes with nice tools such as Wishbone.
+
+# TODO
+ - [ ] break HTML script into separate ``js`` file
+ - [ ] instructions for modifying for your needs
