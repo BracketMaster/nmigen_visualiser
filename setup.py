@@ -30,6 +30,7 @@ setup(
     url='https://github.com/BracketMaster/nmigen_visualiser',
     license='GPLv3+',
     packages=find_packages(exclude=["*.demo*"]),
+    package_data={"": ["*.html", "*.js"],},
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
