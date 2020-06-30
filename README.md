@@ -63,19 +63,27 @@ the ``nmigen_visualiser.update_state()`` function.
 
 The information will be converted to a ``json`` object
 and will be accessible as an object of the ``payload.state``
-object.
+object in the javascript frontend.
 
-For the current timestamp, ``payload.ticks`` is already provided
+In the demo example, the javascript frontend is located in
+``./demo/frontend/frontend.js``.
+
+The current timestamp ``payload.ticks`` is always provided
 to the javascript frontend.
 
 ## Adding Actions
 You may wish for your frontend to have more buttons
-that toggle on and off certain parts of the simulation.
+that toggle on and off certain parts of the visualisation.
 This can be accomplished by adding html form buttons
 to ``./demo/frontend/frontend.html``.
 
 The buttons can trigger functions in the javascript
 located in ``./demo/frontend/frontend.js``.
+
+The flask server has a predefined ``tick`` action that
+causes the simulation to progress. An example of how to 
+access ``tick`` is included in ``./demo/frontend/frontend.js``
+with the corresponding button in ``./demo/frontend/frontend.html``.
 
 ## Augmenting Visualisation
 You can access the ``payload.state`` variable in the
@@ -104,7 +112,7 @@ It has the following strengths:
 
 # TODO
  - [ ] break HTML script into separate ``js`` file
- - [ ] move counter_tb into demo folder
+ - [x] move counter_tb into demo folder
  - [ ] modularize with setup.py
  - [ ] instructions for modifying for your needs
  - [ ] replace CSS with actual files
