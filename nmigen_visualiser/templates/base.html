@@ -32,10 +32,11 @@ function tick(ev) {
     .then((response) => {return response.json()})
     .then((payload) => do_update(payload))
   }
-  var form = document.getElementById('calc');
+
+  var step_button = document.getElementById('step_button');
+  step_button.addEventListener('submit', tick);
   
 {{ js|safe }}
 
-  form.addEventListener('submit', tick);
   setInterval(fetch_updates, 50);
 </script>

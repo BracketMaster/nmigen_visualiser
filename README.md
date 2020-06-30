@@ -77,6 +77,11 @@ that toggle on and off certain parts of the visualisation.
 This can be accomplished by adding html form buttons
 to ``./demo/frontend/frontend.html``.
 
+Check out the ``click_me`` button in
+``./demo/frontend/frontend.html``, and the corresponding
+``click_me.addEventListener`` and ``function click()``
+in ``./demo/frontend/frontend.js``.
+
 The buttons can trigger functions in the javascript
 located in ``./demo/frontend/frontend.js``.
 
@@ -111,8 +116,8 @@ It has the following strengths:
  - nMigen SOC comes with nice tools such as Wishbone.
 
 # TODO
- - [ ] break HTML script into separate ``js`` file
+ - [x] break HTML script into separate ``js`` file
  - [x] move counter_tb into demo folder
- - [ ] modularize with setup.py
- - [ ] instructions for modifying for your needs
+ - [x] modularize with setup.py
+ - [x] instructions for modifying for your needs
  - [ ] replace CSS with actual files
