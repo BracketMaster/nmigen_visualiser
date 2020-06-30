@@ -1,0 +1,19 @@
+<!doctype html>
+<title>{{ title }}</title>
+<link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/normalize.css">
+<link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/sakura-earthly.css">
+<style>
+  ul { margin: 0; padding: 0; display: flex; list-style-type: none; }
+  li > * { padding: 1em; }
+  li.active > a { color: #5e5e5e; border-bottom: 2px solid #4a4a4a; }
+  form { display: flex; }
+  label > input { width: 3em; }
+  form > * { padding-right: 1em; }
+  #result { font-weight: bold; }
+</style>
+
+{{ html|safe }}
+
+<script>
+{{ js|safe }}
+</script>

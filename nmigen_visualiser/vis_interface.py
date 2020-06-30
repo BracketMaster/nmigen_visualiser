@@ -1,10 +1,10 @@
 import requests
 from time import sleep
-from visualiser.vis_backend import start_webapp
+from nmigen_visualiser.vis_backend import start_webapp
 from multiprocessing import Process
 
 class VisInterface():
-    def __init__(self, sim, process, period):
+    def __init__(self, sim, process, period, html, js, title=None):
         self.sim = sim
         self.process = process
         self.period = period
@@ -13,10 +13,18 @@ class VisInterface():
         self.__addr = 'http://127.0.0.1:2000/'
         self.__state = None
         self.__sim_finished = False
+        self.__html = html
+        self.__js = js
+        self.__title = title
 
     def run(self):
         # start webapp as backgroung process
-        p = Process(target=start_webapp, args=(self.__addr,))
+        p = Process(target=start_webapp, args=(
+            self.__addr,
+            self.__title,
+            self.__html,
+            self.__js
+            ))
         p.start()
 
         timestamp = 0

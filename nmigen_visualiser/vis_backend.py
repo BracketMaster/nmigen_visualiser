@@ -16,7 +16,10 @@ app = Flask(__name__)
 
 # TODO : convert this file into a class avoiding global variables
 
-add = None
+addr = None
+title = None
+html = None
+js = None
 state = False
 step_requested = False
 ticks = 0
@@ -27,7 +30,11 @@ def open_browser():
 
 @app.route("/")
 def index():
-    return render_template("base.html")
+    return render_template(
+        "base.html",
+        title=title,
+        html=html,
+        js=js)
 
 @app.route("/update", methods=["POST"])
 def update():
@@ -66,11 +73,17 @@ def tick():
     step_requested = True
     return jsonify({"return": None})
 
-def start_webapp(_addr):
+def start_webapp(_addr, _title, _html, _js):
     # in general, shouldn't use global
     # variables
     global addr
     addr = _addr
+    global title
+    title = _title
+    global html
+    html = _html
+    global js
+    js = _js
 
     # only log errrors
     import logging

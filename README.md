@@ -65,4 +65,7 @@ It has the following strengths:
 
 # TODO
  - [ ] break HTML script into separate ``js`` file
+ - [ ] move counter_tb into demo folder
+ - [ ] modularize with setup.py
  - [ ] instructions for modifying for your needs
+ - [ ] replace CSS with actual files
