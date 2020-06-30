@@ -22,7 +22,7 @@ An added bonus, a visualising simulator may
 also serve as a good form of documentation
 in the future.
 
-# Using
+# Running Demo
 
 This code here is primarily meant to serve as a starting 
 point for other projects.
@@ -30,21 +30,28 @@ point for other projects.
 An nMigen counter is instantiated and its value is drawn
 on a webpage. Clicking ``Step Sim`` advances the simulation.
 
-## Dependencies
-You'll need Python 3.7+.
+## Steps
 
-First install the dependencies.
-You should probably use a virtual Python environment.
-
-```bash
-pip install requirements.txt
-```
-
-## Running
+You may want to do the following steps in 
+a python virtual environment.
 
 ```bash
-python  counter_tb.py
+git clone https://github.com/BracketMaster/nmigen-visualiser
+cd nmigen-visualiser
+python setup.py develop
+python demo/counter_tb.py
 ```
+
+You should now be able to run the demo 
+in the intro picture of this README.
+
+# Extending and Re-using
+You will first need to install ``nmigen_visualiser``
+on your system like so:
+
+Go ahead and look at the ``counter_tb.py`` demo in 
+the ``./demo`` directory.
+
 
 # What is [nMigen](https://github.com/nmigen/nmigen)?
 nMigen is an RTL implemented as a Python DSL.
