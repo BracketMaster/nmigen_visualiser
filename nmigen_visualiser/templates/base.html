@@ -15,5 +15,27 @@
 {{ html|safe }}
 
 <script>
+function tick(ev) {
+    ev.preventDefault();
+    fetch("/tick", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+    })
+  }
+
+  function fetch_updates(){
+    const payload = fetch("/update", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({op:"read_updates"})
+    })
+    .then((response) => {return response.json()})
+    .then((payload) => do_update(payload))
+  }
+  var form = document.getElementById('calc');
+  
 {{ js|safe }}
+
+  form.addEventListener('submit', tick);
+  setInterval(fetch_updates, 50);
 </script>
