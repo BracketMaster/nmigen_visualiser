@@ -6,11 +6,10 @@
 </p>
 <hr>
 
-<!-- Don't modify "type=submit" !!-->
+<!-- the tick() function is predefined and -->
+<!-- included with the flask server -->
 
-<form id="step_button">
-  <input type="submit" value="Sim Step.">
-</form>
+<input type="button" onclick="tick()" value="Sim Step"> 
 
 <p>Time = <span id="ticks"></span></p>
 <p>Counter Val = <span id="result"></span></p>
@@ -21,7 +20,5 @@
 </p>
 <hr>
 
-<form id="click_me">
-  <input type="submit" value="Click Me!">
-</form>
+<input type="button" onclick="clicked()" value="Click Me!"> 
 <p>Number of Clicks = <span id="clicks"></span></p>

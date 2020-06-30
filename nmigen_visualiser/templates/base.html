@@ -15,28 +15,24 @@
 {{ html|safe }}
 
 <script>
-function tick(ev) {
-    ev.preventDefault();
+function tick() {
     fetch("/tick", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
     })
   }
 
-  function fetch_updates(){
-    const payload = fetch("/update", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({op:"read_updates"})
-    })
-    .then((response) => {return response.json()})
-    .then((payload) => do_update(payload))
-  }
+function fetch_updates(){
+  const payload = fetch("/update", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({op:"read_updates"})
+  })
+  .then((response) => {return response.json()})
+  .then((payload) => do_update(payload))
+}
 
-  var step_button = document.getElementById('step_button');
-  step_button.addEventListener('submit', tick);
-  
 {{ js|safe }}
 
-  setInterval(fetch_updates, 50);
+setInterval(fetch_updates, 50);
 </script>

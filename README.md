@@ -78,8 +78,8 @@ This can be accomplished by adding html form buttons
 to ``./demo/frontend/frontend.html``.
 
 Check out the ``click_me`` button in
-``./demo/frontend/frontend.html``, and the corresponding
-``click_me.addEventListener`` and ``function click()``
+``./demo/frontend/frontend.html``, and 
+the corresponding ``function click()``
 in ``./demo/frontend/frontend.js``.
 
 The buttons can trigger functions in the javascript
