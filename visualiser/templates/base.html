@@ -25,8 +25,6 @@
 <p>Sim Ticks = <span id="ticks"></span></p>
 <p>Counter Val = <span id="result"></span></p>
 
-<script src="{{ url_for('static', filename='polyfill.min.js') }}"></script>
-<script src="{{ url_for('static', filename='fetch.js') }}"></script>
 <script>
   function tick(ev) {
     ev.preventDefault();
@@ -48,7 +46,7 @@
       var ticks = document.getElementById('ticks');
       ticks.innerText = payload.ticks;
       var result = document.getElementById('result');
-      result.innerText = payload.result;
+      result.innerText = payload.state;
     })
 
   }

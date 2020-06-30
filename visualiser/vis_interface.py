@@ -50,5 +50,5 @@ class VisInterface():
                 json={"op" : "write_updates",
                     "ticks" : ticks, 
                     # TODO : change counter_val to state
-                    "counter_val" : state}
+                    "state" : state}
                     )

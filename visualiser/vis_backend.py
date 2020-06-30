@@ -1,3 +1,8 @@
+"""
+This file implements the flask server.
+The nmigen simulator can write to the state variable.
+The javascript frontend can read the state variable.
+"""
 import webbrowser
 from threading import Timer
 
@@ -9,9 +14,7 @@ from flask.cli import main
 from flask import Flask
 app = Flask(__name__)
 
-# TODO : docstring up top
 # TODO : convert this file into a class avoiding global variables
-# TODO : change payload counter_val to state
 
 add = None
 state = False
@@ -46,12 +49,12 @@ def update():
 
         if payload["op"] == "write_updates":
             step_requested = False
-            state = payload["counter_val"]
+            state = payload["state"]
             ticks = payload["ticks"]
 
         if payload["op"] == "read_updates":
             return jsonify(
-                {"result" : str(state),
+                {"state" : state,
                 "ticks":ticks}
                 )
 
