@@ -15,7 +15,7 @@ install_requires = [
 ]
 
 setup(
-    name='nmigen-visualiser',
+    name='nmigen_visualiser',
     version=version,
     description="Use javascript to visualise nMigen simulations in realtime.",
     long_description=README,
@@ -27,9 +27,9 @@ setup(
     keywords='nMigen nmigen javascript visualiser visualizer frontend',
     author='Yehowshua Immanuel',
     author_email='yehowshua@systemeslibres.org',
-    url='https://github.com/BracketMaster/nmigen-visualiser',
+    url='https://github.com/BracketMaster/nmigen_visualiser',
     license='GPLv3+',
-    packages=find_packages('nmigen_visualiser'),
+    packages=find_packages(exclude=["*.demo*"]),
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
