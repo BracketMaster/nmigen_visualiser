@@ -22,7 +22,7 @@ An added bonus, a visualising simulator may
 also serve as a good form of documentation
 in the future.
 
-# Running Demo
+# Running the Demo
 
 This code here is primarily meant to serve as a starting 
 point for other projects.
@@ -36,8 +36,8 @@ You may want to do the following steps in
 a python virtual environment.
 
 ```bash
-git clone https://github.com/BracketMaster/nmigen-visualiser
-cd nmigen-visualiser
+git clone https://github.com/BracketMaster/nmigen_visualiser
+cd nmigen_visualiser
 python setup.py develop
 python demo/counter_tb.py
 ```
@@ -49,8 +49,40 @@ in the intro picture of this README.
 You will first need to install ``nmigen_visualiser``
 on your system like so:
 
-Go ahead and look at the ``counter_tb.py`` demo in 
-the ``./demo`` directory.
+```bash
+pip3 install git+https://github.com/BracketMaster/nmigen_visualiser
+```
+
+You can copy the ``./demo`` directory and use it as
+a standalone starting point wherever you'd like.
+
+## Accessing State in Javascript
+Any information you wish to visualise must be passed in
+as a python dict object, a list, or a single value to
+the ``nmigen_visualiser.update_state()`` function.
+
+The information will be converted to a ``json`` object
+and will be accessible as an object of the ``payload.state``
+object.
+
+For the current timestamp, ``payload.ticks`` is already provided
+to the javascript frontend.
+
+## Adding Actions
+You may wish for your frontend to have more buttons
+that toggle on and off certain parts of the simulation.
+This can be accomplished by adding html form buttons
+to ``./demo/frontend/frontend.html``.
+
+The buttons can trigger functions in the javascript
+located in ``./demo/frontend/frontend.js``.
+
+## Augmenting Visualisation
+You can access the ``payload.state`` variable in the
+javascript frontend and do whatever you want with it.
+
+For example, you could iterate over it and pass it
+into ``d3.js`` to make a fancy graph.
 
 
 # What is [nMigen](https://github.com/nmigen/nmigen)?

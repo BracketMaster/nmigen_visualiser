@@ -29,7 +29,7 @@ setup(
     author_email='yehowshua@systemeslibres.org',
     url='https://github.com/BracketMaster/nmigen-visualiser',
     license='GPLv3+',
-    packages=find_packages(),
+    packages=find_packages('nmigen_visualiser'),
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
