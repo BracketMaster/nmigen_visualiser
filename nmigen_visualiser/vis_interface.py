@@ -1,47 +1,71 @@
 import requests
 from time import sleep
 from nmigen_visualiser.vis_backend import start_webapp
-from multiprocessing import Process
+from multiprocessing import Process, Queue
+
+from nmigen.back.pysim import Simulator
+from nmigen import Signal
 
 class VisInterface():
-    def __init__(self, sim, process, period, html, js, title=None):
+    def __init__(self, sim, period, html, js, get_state, title=None):
+        print("DOING INIT")
         self.sim = sim
-        self.process = process
         self.period = period
+        self.queue = Queue()
+        self.get_state = get_state
 
         # private varibles
+        self.__timestamp = 0
         self.__addr = 'http://127.0.0.1:2000/'
         self.__state = None
-        self.__sim_finished = False
         self.__html = html
         self.__js = js
         self.__title = title
+        self.__state = None
 
-    def run(self):
-        # start webapp as backgroung process
-        p = Process(target=start_webapp, args=(
-            self.__addr,
-            self.__title,
-            self.__html,
-            self.__js
-            ))
-        p.start()
+    def run(self, process):
+        print("RUNNING")
 
-        timestamp = 0
-        def frontend_runner():
-            yield from self.process()
-            self.__sim_finished = True
+        def state_wrapper():
+            proc = self.get_state()
+            ret = next(proc)
+            while True:
+                try:
+                    if type(ret) != type(Signal()):
+                        raise TypeError(f"Argument to yield must be of "+
+                            f"type {type(Signal())} not type {type(ret)}"+
+                            "\nFunction get_state must only yield signals.")
+                    ret = proc.send((yield ret))
+                except StopIteration as e:
+                    self.__state = e
+                    return
 
-        self.sim.add_sync_process(frontend_runner)
-        while not self.__sim_finished:
-            if self.__update_requested():
-                self.sim.run_until(timestamp + self.period)
-                timestamp += self.period
-                self.__post_state(timestamp, state)
+        
+        self.sim.add_process(state_wrapper)
+        self.sim.run()
+
+        print(self.__state)
+
+        return
+
+
+        #self.__sim_finished = False
+        #def frontend_runner():
+        #    yield from process()
+        #    self.__sim_finished = True
+
+        #self.sim.add_sync_process(frontend_runner)
+        #while not self.__sim_finished:
+        #    self.queue.get()
+        #    self.queue.put(
+        #        {"state" : self.get_state(),
+        #        "ticks":self.__timestamp}
+        #        )
         
         # teardown webapp
-        p.terminate()
-        p.join()
+        #p.terminate()
+        #print("TERMINATED")
+        #p.join()
 
     def update_state(self, curr_state):
         global state
@@ -60,3 +84,7 @@ class VisInterface():
                     # TODO : change counter_val to state
                     "state" : state}
                     )
+    
+    def __exit__(self):
+        self.queue.close()
+        self.queue.join_thread()

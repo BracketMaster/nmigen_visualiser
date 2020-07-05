@@ -20,6 +20,8 @@ function tick() {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
     })
+  .then((response) => {return response.json()})
+  .then((payload) => do_update(payload))
   }
 
 function fetch_updates(){
@@ -28,11 +30,9 @@ function fetch_updates(){
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({op:"read_updates"})
   })
-  .then((response) => {return response.json()})
-  .then((payload) => do_update(payload))
 }
 
 {{ js|safe }}
 
-setInterval(fetch_updates, 50);
+//setInterval(fetch_updates, 50);
 </script>

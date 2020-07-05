@@ -23,6 +23,7 @@ js = None
 state = False
 step_requested = False
 ticks = 0
+queue = None
 
 def open_browser():
       webbrowser.open_new(addr)
@@ -71,9 +72,11 @@ def update():
 def tick():
     global step_requested
     step_requested = True
-    return jsonify({"return": None})
+    queue.put(None)
+    recv = queue.get()
+    return jsonify(recv)
 
-def start_webapp(_addr, _title, _html, _js):
+def start_webapp(_addr, _title, _html, _js, _queue):
     # in general, shouldn't use global
     # variables
     global addr
@@ -84,6 +87,8 @@ def start_webapp(_addr, _title, _html, _js):
     html = _html
     global js
     js = _js
+    global queue
+    queue = _queue
 
     # only log errrors
     import logging
