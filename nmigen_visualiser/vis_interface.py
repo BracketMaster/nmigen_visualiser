@@ -15,7 +15,6 @@ class VisInterface():
         self.get_state = get_state
 
         # private varibles
-        self.__timestamp = 0
         self.__addr = 'http://127.0.0.1:2000/'
         self.__state = None
         self.__html = html
@@ -66,10 +65,7 @@ class VisInterface():
             # recieves
             self.queue.get()
             state = yield from state_wrapper()
-            self.queue.put(
-                {"state" : state.value,
-                "ticks":self.__timestamp}
-                )
+            self.queue.put({"state" : state.value})
 
             proc = process()
             # must get first element out of generator
@@ -88,17 +84,11 @@ class VisInterface():
                     self.queue.get()
                     ret = proc.send((yield ret))
                     state = yield from state_wrapper()
-                    self.queue.put(
-                        {"state" : state.value,
-                        "ticks":self.__timestamp}
-                        )
+                    self.queue.put({"state" : state.value})
 
                 except StopIteration:
                     state = yield from state_wrapper()
-                    self.queue.put(
-                        {"state" : state.value,
-                        "ticks":self.__timestamp}
-                        )
+                    self.queue.put({"state" : state.value})
                     sleep(.6)
                     break
 
