@@ -1,5 +1,12 @@
 # nMigen Simulator Visualiser
 
+This repository provides a skeleton as well as some
+demo code demonstrating how to visualise the state
+of an nMigen simulation with some javascript.
+
+The code is lightweight and implements updates with
+callbacks whenever a button is clicked.
+
 ![](docs/visualiser_session.png)
 
 [What is nMigen?](#what-is-nmigen)
