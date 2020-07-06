@@ -30,7 +30,6 @@ sim.add_clock(period)
 # setup visual frontend
 visual_sim = VisInterface(
     sim = sim,
-    period = period,
     html = html,
     js = js,
     get_state=get_state,

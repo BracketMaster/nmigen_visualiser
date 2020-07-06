@@ -9,9 +9,8 @@ from nmigen import Signal
 from time import sleep
 
 class VisInterface():
-    def __init__(self, sim, period, html, js, get_state, title=None):
+    def __init__(self, sim, html, js, get_state, title=None):
         self.sim = sim
-        self.period = period
         self.get_state = get_state
 
         # private varibles
