@@ -1,22 +1,23 @@
 from counter import Counter
-from nmigen.back.pysim import Simulator
+from nmigen.back.pysim import Simulator, Tick, Settle
 from nmigen import Module
 
 from nmigen_visualiser.vis_interface import VisInterface
 from frontend.frontend import html, js
 
 def get_state():
-    print("Getting State")
-    print((yield dut.val))
-    print((yield dut.val))
-    print((yield dut.val))
-    return {6:6}
+    # the only thing your get_state function
+    # is allowed to yield are nMigen signals
+    # That is, statements such as ``yield Tick()``
+    # ``yield Settle()`` or simply ``yield``
+
+    #This function should return a string.
+    return str((yield dut.val))
 
 
 def process():
-    for tick in range(3):
-        print((yield dut.val))
-    return {6:6}
+    for tick in range(4):
+        yield
 
 # setup nMigen simulation
 dut = Counter(limit=20)
@@ -25,19 +26,6 @@ m.submodules.dut = dut
 sim = Simulator(m)
 period = 1e-6
 sim.add_clock(period)
-
-val = None
-
-def wrapper():
-    proc = process()
-    ret = next(proc)
-    while True:
-        try:
-            ret = proc.send((yield ret))
-        except StopIteration as e:
-            global val
-            val = e
-            return
 
 # setup visual frontend
 visual_sim = VisInterface(
@@ -49,4 +37,5 @@ visual_sim = VisInterface(
     # makes the current file title the browser tab title
     title = __file__[:-3]
     )
-visual_sim.run(3)
+
+visual_sim.run(process)

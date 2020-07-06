@@ -28,7 +28,6 @@ queue = None
 def open_browser():
       webbrowser.open_new(addr)
 
-
 @app.route("/")
 def index():
     return render_template(
@@ -36,37 +35,6 @@ def index():
         title=title,
         html=html,
         js=js)
-
-@app.route("/update", methods=["POST"])
-def update():
-
-    global step_requested
-    global state
-    global ticks
-
-    payload = request.json
-    # the python nmigen simulation can check if update is requested
-    # the python nmigen simulation can write its updates
-    # the javascipt visualisation can read in the current nmigen state
-    if "op" in payload:
-
-        if payload["op"] == "request_status":
-            return jsonify({"status": 
-                           {"step_requested": step_requested}
-                           })
-
-        if payload["op"] == "write_updates":
-            step_requested = False
-            state = payload["state"]
-            ticks = payload["ticks"]
-
-        if payload["op"] == "read_updates":
-            return jsonify(
-                {"state" : state,
-                "ticks":ticks}
-                )
-
-    return jsonify({"return": None})
 
 @app.route("/tick", methods=["POST"])
 def tick():

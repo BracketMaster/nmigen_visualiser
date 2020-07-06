@@ -24,15 +24,9 @@ function tick() {
   .then((payload) => do_update(payload))
   }
 
-function fetch_updates(){
-  const payload = fetch("/update", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({op:"read_updates"})
-  })
-}
+// We intiate with a single tick()
+tick()
 
 {{ js|safe }}
 
-//setInterval(fetch_updates, 50);
 </script>
