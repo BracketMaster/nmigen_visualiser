@@ -38,4 +38,4 @@ visual_sim = VisInterface(
     title = __file__[:-3]
     )
 
-visual_sim.run(process)
+visual_sim.run_sync(process)

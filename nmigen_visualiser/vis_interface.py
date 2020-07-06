@@ -23,8 +23,7 @@ class VisInterface():
         self.__title = title
         self.__state = None
 
-    def run(self, process):
-        self.queue = Queue()
+    def run_sync(self, process):
 
         def state_wrapper():
             proc = self.get_state()
@@ -46,6 +45,11 @@ class VisInterface():
                 except StopIteration as e:
                     return e
 
+        # use queue to communicate bewtween this process
+        # and webapp process
+
+        self.queue = Queue()
+        # start webapp as separate process
         p = Process(target=start_webapp, args=(
             self.__addr,
             self.__title,
@@ -58,6 +62,8 @@ class VisInterface():
 
         def process_wrapper():
 
+            # we can implement callbacks by blocking on queue
+            # recieves
             self.queue.get()
             state = yield from state_wrapper()
             self.queue.put(
