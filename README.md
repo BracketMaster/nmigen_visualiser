@@ -56,20 +56,55 @@ pip3 install git+https://github.com/BracketMaster/nmigen_visualiser
 You can copy the ``./demo`` directory and use it as
 a standalone starting point wherever you'd like.
 
-## Accessing State in Javascript
-Any information you wish to visualise must be passed in
-as a python dict object, a list, or a single value to
-the ``nmigen_visualiser.update_state()`` function.
+## Creating The Visualiser
+Once you have setup your nMigen simulation object,
+instead of doing:
 
-The information will be converted to a ``json`` object
-and will be accessible as an object of the ``payload.state``
-object in the javascript frontend.
+```python
+sim.add_sync_process(process)
+sim.run()
+```
 
-In the demo example, the javascript frontend is located in
-``./demo/frontend/frontend.js``.
+You can do:
 
-The current timestamp ``payload.ticks`` is always provided
-to the javascript frontend.
+```python
+visual_sim = VisInterface(
+    sim = sim,
+    html = html,
+    js = js,
+    get_state=get_state,
+    # makes the current file title the browser tab title
+    title = __file__[:-3]
+    )
+
+visual_sim.run_sync(process)
+```
+
+Sim is your nMigen simulator object.
+
+``html`` and ``js`` are strings containing the frontend
+html and js.
+
+You can take a look in ``demo/counter_tb.py`` to see that
+``frontend.html`` and ``frontend.js`` are opened as text files
+and read into the ``html`` and ``js`` string objects.
+
+``get_state`` is a generator function that whose last yield is a
+string object that represents the state of some signals of interest
+in the simulation at that instant in time.
+
+It might make sense to have ``get_state`` yield a ``json`` 
+string which would allow for easier parsing from the javascript
+side of things.
+
+Note that the ``get_state`` function is only allowed to yield
+objects of type ``Signal`` with the exception of its last yield
+statement which must be of type ``str``.
+
+This of course means that you cannot yield ``Tick`` or ``Settle``
+as these commands would advance the simulation in some manner,
+violating the purpose ``get_state`` function which is merely
+meant to observe the simulation without affecting its state.
 
 ## Adding Actions
 You may wish for your frontend to have more buttons
