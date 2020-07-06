@@ -162,4 +162,5 @@ It has the following strengths:
  - [x] move counter_tb into demo folder
  - [x] modularize with setup.py
  - [x] instructions for modifying for your needs
+ - [x] callbacks instead of polling
  - [ ] replace CSS with actual files
