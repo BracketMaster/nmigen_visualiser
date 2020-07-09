@@ -8,8 +8,8 @@ The code is lightweight and implements updates with
 callbacks whenever a button is clicked.
 
 Below is a fantastic example of visualising
-the internal state of the nMigen ML accelerator
-MAERIV6.
+the internal state of the [nMigen ML accelerator
+MAERIV6](https://github.com/BracketMaster/MAERIV6).
 
 ![](docs/maeri.png)
 
