@@ -7,7 +7,11 @@ of an nMigen simulation with some javascript.
 The code is lightweight and implements updates with
 callbacks whenever a button is clicked.
 
-![](docs/visualiser_session.png)
+Below is a fantastic example of visualising
+the internal state of the nMigen ML accelerator
+MAERIV6.
+
+![](docs/maeri.png)
 
 [What is nMigen?](#what-is-nmigen)
 
@@ -50,7 +54,9 @@ python demo/counter_tb.py
 ```
 
 You should now be able to run the demo 
-in the intro picture of this README.
+shown in the picture below.
+
+![](docs/visualiser_session.png)
 
 # Extending and Re-using
 You will first need to install ``nmigen_visualiser``
