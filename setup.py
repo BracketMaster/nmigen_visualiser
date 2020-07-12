@@ -15,7 +15,7 @@ install_requires = [
 ]
 
 setup(
-    name='nmigen_visualiser',
+    name='nmigen-visualiser',
     version=version,
     description="Use javascript to visualise nMigen simulations in realtime.",
     long_description=README,
